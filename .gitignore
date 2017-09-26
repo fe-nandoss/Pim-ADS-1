@@ -27,6 +27,7 @@
 *.i*86
 *.x86_64
 *.hex
-
+cmake-build-debug
+.idea
 # Debug files
 *.dSYM/
