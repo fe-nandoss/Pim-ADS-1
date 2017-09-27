@@ -1,13 +1,25 @@
 #include <stdio.h>
-#include "CarrosDisponiveis.h"
+#include "CarrosMetodos.h"
+#include "ClienteMetodos.h"
+#include "Cliente.h"
 
 int main() {
 
-    Carro carro[100];
+    Cliente cliente;
+    criaCliente(&cliente);
+
+    int max;
+    max = numeroDeCarros(); //numero maximo de registros no Txt
+    Carro carro[max];
     carrosDisponiveis(carro);
 
-    for(int i=0;i<20;i++){
-        printf("Modelos: %s - preco: %.2f\n",carro[i].modelo,carro[i].preco);
-    }
+
+
+//    FILE *novoArquivo;
+//
+//    novoArquivo = fopen("/Volumes/Dr Manhattan/Projects/ADS-UNIP/projeto_ads/arquivo.txt","a+");
+//    fputs("sou um arquivo legal",novoArquivo);
+//    fflush(novoArquivo);
+//    fclose(novoArquivo);
     return 0;
 }
