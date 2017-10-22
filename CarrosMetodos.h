@@ -1,49 +1,31 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include "Carro.h"
-#define txt "/Volumes/Dr Manhattan/Projects/ADS-UNIP/projeto_ads/carrosDisponiveis.txt"
-#define MAX 100
+#include <paths.h>
+#define txt "/Users/furflesx/projetos/ADS-UNIP/projeto_ads/carrosDisponiveis.txt"
 
-void carrosDisponiveis(Carro x[MAX]){
+t_Carro * carrosDisponiveis(){
 
-    int i=0;
-    FILE *arq;
+    t_Carro * ini_carro;
+    t_Carro * proximo_carro;
+    FILE * arq = fopen(txt, "r");
 
-    arq = fopen(txt, "r");
-    if(arq == NULL){
-        printf("Erro, nao foi possivel abrir o arquivo\n");
-    }
-    else{
-        while( (fscanf(arq,"%d %20s %20s %20s %f %20s ;\n", &x[i].codigo, x[i].modelo, x[i].marca, x[i].placa,&x[i].preco, x[i].status_alugado))!=EOF ){
-            i++;
-        }
-    }
+    ini_carro = (t_Carro *) malloc(sizeof(t_Carro));
+    //oloco a quantidade de memoria para ini_ponto, esse tamanho irá variar por esse motivo usso malloc
 
-    fclose(arq);
+    if(ini_carro == NULL)
+        exit(1);
 
-}
+    proximo_carro = ini_carro;
 
-int numeroDeCarros(){
-
-    int i=1;
-    FILE *arq;
-    char ch;
-
-    arq = fopen(txt, "r");
-    if(arq == NULL){
-        printf("Erro, nao foi possivel abrir o arquivo\n");
-    }
-    else{
-        while( (ch=fgetc(arq))!= EOF ){
-            if(ch == '\n'){
-                i++;
-            }
-        }
+    while((fscanf(arq,"%d %s %s %s %f %s\n",&proximo_carro->codigo,&proximo_carro->modelo,&proximo_carro->marca,&proximo_carro->placa,&proximo_carro->preco,&proximo_carro->status_alugado))!=EOF){
+        proximo_carro->proximo = (t_Carro *) malloc(sizeof(t_Carro));
+        proximo_carro = proximo_carro->proximo;
     }
 
-    fclose(arq);
+    proximo_carro->proximo = NULL;
+    proximo_carro = ini_carro;
 
-    return i;
+    return proximo_carro;
 }

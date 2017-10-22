@@ -44,20 +44,6 @@ void criaCliente(struct Cliente * cli){
 
     printData(&data,cli);
 
-//
-//
-//    int mes;
-//    do{
-//
-//    }while (mes < 1 || mes > 12);
-//
-//    data.tm_mon = mes - 1;
-//
-//    do{
-//     limpa_console();
-//        printf("Digite o ano: ");
-//        scanf("%d",&data.tm_year);
-//    }while (data.tm_year < 2017 || data.tm_year > 2018);
 }
 
 #endif //PROJETO_ADS_CLIENTEMETODOS_H
