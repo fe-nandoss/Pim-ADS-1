@@ -19,7 +19,7 @@ t_Carro * carrosDisponiveis(){
 
     proximo_carro = ini_carro;
 
-    while((fscanf(arq,"%d %s %s %s %f %s\n",&proximo_carro->codigo,&proximo_carro->modelo,&proximo_carro->marca,&proximo_carro->placa,&proximo_carro->preco,&proximo_carro->status_alugado))!=EOF){
+    while((fscanf(arq,"%d %s %s %s %f %s\n",&proximo_carro->codigo,&proximo_carro->modelo[50],&proximo_carro->marca[50],&proximo_carro->placa[50],&proximo_carro->preco,&proximo_carro->status_alugado))!=EOF){
         proximo_carro->proximo = (t_Carro *) malloc(sizeof(t_Carro));
         proximo_carro = proximo_carro->proximo;
     }

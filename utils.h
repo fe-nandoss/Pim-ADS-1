@@ -10,4 +10,6 @@ int limpa_console(){
     printf("\33[H\33[2J");
     return 0;
 }
+
+
 #endif //PROJETO_ADS_UTILS_H

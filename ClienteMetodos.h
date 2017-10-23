@@ -13,13 +13,9 @@
 
 void criaCliente(struct Cliente * cli){
 
-    struct tm data;
-    iniciaData(&data);
-
     limpa_console();
     printf("Nome: ");
     scanf("%s",cli->nome);
-
 
     do{
         limpa_console();
@@ -32,18 +28,13 @@ void criaCliente(struct Cliente * cli){
     }
     while (cli->tipo < 1 || cli->tipo > 3);
 
-    defineMinuto(&data);
+    limpa_console();
 
-    defineHora(&data);
+    printf("Digite a locação(DD/MM/AAAA): ");
+    char * msg;
+    msg = defineData(cli,"dataLocacao");
 
-    defineDia(&data);
-
-    defineMes(&data);
-
-    defineAno(&data);
-
-    printData(&data,cli);
-
+    printf("\nmain data: %s\n",ctime(&cli->dataLocacao));
 }
 
 #endif //PROJETO_ADS_CLIENTEMETODOS_H
