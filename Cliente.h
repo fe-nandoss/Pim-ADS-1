@@ -11,9 +11,9 @@ typedef struct Cliente{
 
     char nome[50];
     int tipo;
-    time_t dataLocacao;
-    time_t dataDevolucao;
+    struct tm * dataLocacao;
+    struct tm * dataDevolucao;
 
-}Cliente;
+}t_Cliente;
 
 #endif //PROJETO_ADS_CLIENTE_H

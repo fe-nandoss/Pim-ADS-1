@@ -1,23 +1,28 @@
-1 2300 alfa-romeo fht-0776 175 disponivel
-2 xsara-picasso citroen cla-5418 120 disponivel
-3 uno-mille fiat feh-3471 70 disponivel
-4 charger dodge btr-4156 250 disponivel
-5 maverick ford fvz-4015 180 disponivel
-6 renegade jeep fyx-0607 200 disponivel
-7 ti lafer dal-2460 110 disponivel
-8 classe-a mercedez-benz cnw-0949 130 disponivel
-9 pajero mitsubishi gjq-8932 150 disponivel
-10 frontier nissan ehf-1280 160 disponivel
-11 livina nissan ffd-5911 135 disponivel
-12 206 peugeot cei-4488 80 disponivel
-13 hoggar peugeot dhw-3084 130 disponivel
-14 clio renault ebo-9101 80 disponivel
-15 clio-sedan renault boe-0978 100 disponivel
-16 hilux toyota eaq-3958 180 disponivel
-17 kombi wolkswagen eng-2801 200 disponivel
-18 serie-3 bmw bft-7626 300 disponivel
-19 viper dodge bsf-8301 450 disponivel
-20 pajero mitsubishi gjq-8932 150 disponivel
-21 frontier nissan ehf-1280 160 disponivel
-22 livina nissan ffd-5911 135 disponivel
-23 206 peugeot cei-4488 80 disponivel
+1 2300 alfa-romeo fht-0776 175
+2 xsara-picasso citroen cla-5418 120
+3 uno-mille fiat feh-3471 70
+4 charger dodge btr-4156 250
+5 maverick ford fvz-4015 180
+6 renegade jeep fyx-0607 200
+7 ti lafer dal-2460 110
+8 classe-a mercedez-benz cnw-0949 130
+9 pajero mitsubishi gjq-8932 150
+10 frontier nissan ehf-1280 160
+11 livina nissan ffd-5911 135
+12 206 peugeot cei-4488 80
+13 hoggar peugeot dhw-3084 130
+14 clio renault ebo-9101 80
+15 clio-sedan renault boe-0978 100
+16 hilux toyota eaq-3958 180
+17 kombi wolkswagen eng-2801 200
+18 serie-3 bmw bft-7626 300
+19 viper dodge bsf-8301 450
+20 pajero mitsubishi gjq-8932 150
+21 frontier nissan ehf-1280 160
+22 livina nissan ffd-5911 135
+23 206 peugeot cei-4488 80
+19 viper dodge bsf-8301 450
+20 pajero mitsubishi gjq-8932 150
+21 frontier nissan ehf-1280 160
+22 livina nissan ffd-5911 135
+23 206 peugeot cei-4488 81

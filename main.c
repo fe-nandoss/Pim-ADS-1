@@ -1,19 +1,57 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include "utils.h"
 #include "CarrosMetodos.h"
 #include "ClienteMetodos.h"
 
 int main() {
 
-    Cliente cliente;
-    criaCliente(&cliente);
 
-//    t_Carro * carro = carrosDisponiveis();
-//    do{
-//        printf("valor %.2f\n",carro->preco);
-//        carro = carro->proximo;
+//    t_Cliente * cliente = criaCliente();
+    t_Carro * carro = carrosDisponiveis();
+    
+//    printf("\nNome: %s\nTipo: %i\nLocação: %i/%i/%i\n",
+//            cliente->nome,
+//            cliente->tipo,
+//            cliente->dataDevolucao->tm_mday,
+//           cliente->dataDevolucao->tm_mon+1,
+//           cliente->dataDevolucao->tm_year);
 //
+    
+    
+    do{
+        printf("valor %.2f\n",carro->preco);
+        carro = carro->proximo;
+
+    }
+    while (carro != NULL && carro->proximo != NULL);
+
+//    gravaCliente(cliente);
+    /*
+     * Criar um Cliente
+     * Fazer esse cliente escolher um carro
+     * Criar um registro juntanto o cliente mais o cara
+     * mostro esse resultado na tela
+     * gravo isso no disco
+     * apos gravar no disco volto para o menu
+     * pergunto se algum cliente quer devolver ou alugar, caso for para alugar crio um novo registro e repito os passos anteriores
+     * caso devolver, pergunto se quer informar por placa do carro ou por rg
+     * de acordo a escolha pedir os dados
+     * apos pedir os dados do usuario procurar esses dados no disco/tabela de alocados
+     *
+     *
+     */
+
+
+//    char * nome[] = {"joao","maria","pedro","marcelo","arnaldo","jose","costa","ronaldo","raul","zeze"};
+//    char * sobrenome[] = {"silva","souza","da cruz","ferreira","yous","raiz","zyaoiu","syqns","stqbal","aisnca"};
+//
+//    srand(time(NULL));
+//
+//    for(int i = 0;i < sizeof(nome);i++){
+//        printf("nome: %s %s\n",nome[rand()%10],sobrenome[rand()%10]);
 //    }
-//    while (carro != NULL && carro->codigo != NULL);
+
 
     return 0;
 }

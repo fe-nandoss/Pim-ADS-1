@@ -31,3 +31,5 @@ cmake-build-debug
 .idea
 # Debug files
 *.dSYM/
+
+\.DS_Store
