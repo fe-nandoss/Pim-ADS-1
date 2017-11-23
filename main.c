@@ -4,12 +4,13 @@
 #include "CarrosMetodos.h"
 #include "ClienteMetodos.h"
 
-int main() {
+int main(int argc, char *argv[]) {
 
-
-//    t_Cliente * cliente = criaCliente();
-    t_Carro * carro = carrosDisponiveis();
-    
+    printf("sou um texto");
+    limpa_console();
+    t_Cliente * cliente = criaCliente();
+//    t_Carro * carro = carrosDisponiveis();
+//    listagemClientes();
 //    printf("\nNome: %s\nTipo: %i\nLocação: %i/%i/%i\n",
 //            cliente->nome,
 //            cliente->tipo,
@@ -19,12 +20,12 @@ int main() {
 //
     
     
-    do{
-        printf("valor %.2f\n",carro->preco);
-        carro = carro->proximo;
-
-    }
-    while (carro != NULL && carro->proximo != NULL);
+//    do{
+//        printf("carro: %s | marca: %s | status:  %s | valor: %.2f\n",carro->modelo,carro->marca,carro->status,carro->preco);
+//        carro = carro->proximo;
+//
+//    }
+//    while (carro != NULL && carro->proximo != NULL);
 
 //    gravaCliente(cliente);
     /*

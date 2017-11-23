@@ -6,5 +6,5 @@
 //
 
 
-#define txtListaCarros "/Users/furflesx/projetos/ADS-UNIP/projeto_ads/carrosDisponiveis.txt";
-#define txtListaClientes "/Users/furflesx/projetos/ADS-UNIP/projeto_ads/clientesReg.txt";
+#define txtListaCarros "/Users/furflesx/projetos/Pim-ADS/carrosDisponiveis.txt";
+#define txtListaClientes "/Users/furflesx/projetos/Pim-ADS/clientesReg.txt";

@@ -8,6 +8,7 @@ typedef struct Carro{
     char marca[50];
     char placa[50];
     float preco;
+    char status[50];
     struct Carro * proximo;
 }t_Carro;
 

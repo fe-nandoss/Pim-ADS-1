@@ -11,7 +11,7 @@
 #include "utils.h"
 #include "Cliente.h"
 
-char * defineData(t_Cliente * cli,char * tipo){
+void defineData(t_Cliente * cli,char * tipo){
 
     char * entradaData = malloc(100);
     char * entradaHora = malloc(100);
@@ -41,8 +41,6 @@ char * defineData(t_Cliente * cli,char * tipo){
     if(strcmp(tipo,"dataDevolucao") == 0){
         cli->dataDevolucao = breakdown;
     }
-
-    return entradaData;
 }
 
 #endif //PROJETO_ADS_DATA_H

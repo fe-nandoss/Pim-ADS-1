@@ -6,10 +6,19 @@
 #ifndef PROJETO_ADS_UTILS_H
 #define PROJETO_ADS_UTILS_H
 
-int limpa_console(){
+void limpa_console(void)
+{
+#ifdef linux //|| LINUX || Linux || UNIX
+    //código especifico para linux
+    //system ("clear");//poderia ser este mas escolhi este outro pois é mais a cara do C
     printf("\33[H\33[2J");
-    return 0;
+#elif defined WIN32
+    //código específico para windows
+    system ("cls");
+#else
+    printf("\33[H\33[2J");
+#endif
+    
 }
-
 
 #endif //PROJETO_ADS_UTILS_H
