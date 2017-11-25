@@ -1,10 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include "Carro.h"
-#include <paths.h>
-#include "_globals.h"
+//
+//  CarroMetodos.c
+//  Pim
+//
+//  Created by Furflesx on 25/11/2017.
+//  Copyright © 2017 Furflesx. All rights reserved.
+//
+
+#include "Header/H_CarroMetodos.h"
 
 t_Carro * listaVeiculos(){
     
@@ -108,4 +110,3 @@ void alteraVeiculo(t_Carro * listaDeCarros, int codigo_veiculo){
         listaDeCarros = listaDeCarros->proximo;
     }
 }
-

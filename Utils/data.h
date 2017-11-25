@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "utils.h"
-#include "Cliente.h"
+#include "../Header/Cliente.h"
 
 void defineData(t_Cliente * cli,char * tipo){
 

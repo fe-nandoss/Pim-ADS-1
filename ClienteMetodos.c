@@ -1,36 +1,20 @@
 //
-// Created by Furflesx on 26/09/17.
+//  ClienteMetodos.c
+//  Pim
+//
+//  Created by Furflesx on 25/11/2017.
+//  Copyright © 2017 Furflesx. All rights reserved.
 //
 
-#ifndef PROJETO_ADS_CLIENTEMETODOS_H
-#define PROJETO_ADS_CLIENTEMETODOS_H
-
-#include <stdio.h>
-#include <stdlib.h>
-#include "data.h"
-#include "utils.h"
-#include "Cliente.h"
-#include <math.h>
-
-typedef struct tempCliente{
-    int codigo;
-    char nome[50];
-    float desconto;
-    long dataLocacao;
-    long dataDevolucao;
-    int codigo_veiculo;
-    struct temp * proximo;
-}temp_Cliente;
-
-void gravaCliente(t_Cliente * cliente);
+#include "Header/H_ClienteMetodos.h"
 
 t_Cliente * criaCliente(){
-
+    
     t_Cliente * cli = (t_Cliente *) malloc(sizeof(t_Cliente));
     limpa_console();
     printf("Nome: ");
     scanf("%s",cli->nome);
-
+    
     float desconto = 1.00;
     int opcao = 0;
     
@@ -42,12 +26,12 @@ t_Cliente * criaCliente(){
         scanf("%d",&opcao);
     }
     while (opcao < 1 || opcao > 2);
-
+    
     if(opcao == 1)
         desconto += -0.05;
     
     limpa_console();
-
+    
     do{
         limpa_console();
         printf("Idoso\n"
@@ -66,7 +50,7 @@ t_Cliente * criaCliente(){
     limpa_console();
     
     printf("Digite a locação(DD/MM/AAAA): ");
-
+    
     defineData(cli,"dataLocacao");
     
     cli->codigo_veiculo = 1;
@@ -118,7 +102,7 @@ void gravaCliente(t_Cliente * cliente){
     char * listaClientes = PATH_TXT_CLIENTES;
     FILE * regCliente = fopen(listaClientes, "a+");
     int numeroDeRegistros = listagemClientes();
-//    teste se o arquivo existe
+    //    teste se o arquivo existe
     if (regCliente != NULL) {
         
         fprintf(regCliente, "%i %s %f %li %li %i\n",numeroDeRegistros,cliente->nome,cliente->desconto,mktime(cliente->dataLocacao),mktime(cliente->dataDevolucao),cliente->codigo_veiculo);
@@ -127,11 +111,7 @@ void gravaCliente(t_Cliente * cliente){
         printf("Crie o Arquivo: clientesReg.txt\n");
         exit(0);
     }
-
-   fclose(regCliente);
+    
+    fclose(regCliente);
     
 }
-
-
-
-#endif //PROJETO_ADS_CLIENTEMETODOS_H
