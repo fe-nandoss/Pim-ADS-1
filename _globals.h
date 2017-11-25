@@ -6,5 +6,5 @@
 //
 
 
-#define txtListaCarros "/Users/furflesx/projetos/Pim-ADS/carrosDisponiveis.txt";
-#define txtListaClientes "/Users/furflesx/projetos/Pim-ADS/clientesReg.txt";
+#define PATH_TXT_CARROS "/Users/furflesx/projetos/Pim-ADS/carrosDisponiveis.txt";
+#define PATH_TXT_CLIENTES "/Users/furflesx/projetos/Pim-ADS/clientesReg.txt";

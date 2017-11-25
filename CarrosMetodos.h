@@ -8,7 +8,7 @@
 
 t_Carro * listaVeiculos(){
     
-    char * listaCarros = txtListaCarros;
+    char * listaCarros = PATH_TXT_CARROS;
     t_Carro * ini_carro;
     t_Carro * proximo_carro;
     FILE * arq = fopen(listaCarros, "r");
@@ -21,7 +21,7 @@ t_Carro * listaVeiculos(){
     
     proximo_carro = ini_carro;
     
-    while((fscanf(arq,"%d %s %s %s %f %s\n",&proximo_carro->codigo,&proximo_carro->modelo[50],&proximo_carro->marca[50],&proximo_carro->placa[50],&proximo_carro->preco,&proximo_carro->status[50]))!=EOF){
+    while((fscanf(arq,"%d %s %s %s %f %s\n",&proximo_carro->codigo,proximo_carro->modelo,proximo_carro->marca,proximo_carro->placa,&proximo_carro->preco,proximo_carro->status))!=EOF){
         proximo_carro->proximo = (t_Carro *) malloc(sizeof(t_Carro));
         proximo_carro = proximo_carro->proximo;
     }
@@ -32,7 +32,7 @@ t_Carro * listaVeiculos(){
     return proximo_carro;
 }
 
-t_Carro * carrosDisponiveis(){
+t_Carro * veiculosDisponiveis(){
     
     t_Carro * carrosDisponiveis = listaVeiculos();
     
@@ -84,5 +84,28 @@ t_Carro * carrosDisponiveis(){
     
     return carrosDisponiveis;
     
+}
+
+void gravaVeiculos(t_Carro * listaDeCarros){
+    
+    char * TXTPATHCARROS = PATH_TXT_CARROS;
+    FILE * arq = fopen(TXTPATHCARROS, "w+");
+    while (listaDeCarros != NULL && listaDeCarros->proximo != NULL) {
+        fprintf(arq,"%d %s %s %s %.0f %s\n",listaDeCarros->codigo,listaDeCarros->modelo,listaDeCarros->marca,listaDeCarros->placa,listaDeCarros->preco,listaDeCarros->status);
+        listaDeCarros = listaDeCarros->proximo;
+    }
+    
+    fclose(arq);
+}
+
+void alteraVeiculo(t_Carro * listaDeCarros, int codigo_veiculo){
+    
+    while (listaDeCarros != NULL && listaDeCarros->proximo != NULL) {
+        if(listaDeCarros->codigo == codigo_veiculo){
+            printf("\nCarro escolhido - cod %i - carro: %s\n",listaDeCarros->codigo,listaDeCarros->modelo);
+            strcpy(listaDeCarros->status,"alugado") ;
+        }
+        listaDeCarros = listaDeCarros->proximo;
+    }
 }
 

@@ -14,6 +14,7 @@ typedef struct Cliente{
     float desconto;
     struct tm * dataLocacao;
     struct tm * dataDevolucao;
+    int codigo_veiculo;
 
 }t_Cliente;
 
