@@ -3,5 +3,5 @@ project(projeto_ads)
 
 set(CMAKE_C_STANDARD 11)
 
-set(SOURCE_FILES main.c CarrosMetodos.h Carro.h ClienteMetodos.h utils.h data.h Cliente.h)
-add_executable(projeto_ads ${SOURCE_FILES})
+set(SOURCE_FILES main.c ClienteMetodos.c CarroMetodos.c Header Utils Arquivos)
+add_executable(pim ${SOURCE_FILES})
