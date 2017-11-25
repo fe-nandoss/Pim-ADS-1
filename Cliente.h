@@ -9,8 +9,9 @@
 
 typedef struct Cliente{
 
+    int codigo;
     char nome[50];
-    int tipo;
+    float desconto;
     struct tm * dataLocacao;
     struct tm * dataDevolucao;
 

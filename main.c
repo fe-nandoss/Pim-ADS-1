@@ -6,8 +6,6 @@
 
 int main(int argc, char *argv[]) {
 
-    printf("sou um texto");
-    limpa_console();
     t_Cliente * cliente = criaCliente();
 //    t_Carro * carro = carrosDisponiveis();
 //    listagemClientes();

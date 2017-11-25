@@ -10,11 +10,12 @@
 #include "data.h"
 #include "utils.h"
 #include "Cliente.h"
+#include <math.h>
 
 typedef struct tempCliente{
     int codigo;
     char nome[50];
-    int tipo;
+    float desconto;
     long dataLocacao;
     long dataDevolucao;
     struct temp * proximo;
@@ -24,24 +25,45 @@ void gravaCliente(t_Cliente * cliente);
 
 t_Cliente * criaCliente(){
 
-    t_Cliente * cli = malloc(100 * sizeof(char *));
+    t_Cliente * cli = (t_Cliente *) malloc(sizeof(char *));
     limpa_console();
     printf("Nome: ");
     scanf("%s",cli->nome);
 
+    float desconto = 1.00;
+    int opcao = 0;
+    
     do{
         limpa_console();
-        printf("Escolha uma opção abaixo\n"
-                       "1 - Participante de uma ONG\n"
-                       "2 - Idoso\n"
-                       "3 - Nenhuma das opções\n"
-                       "Opção: ");
-        scanf("%d",&cli->tipo);
+        printf("Participante de uma ONG\n"
+               "<1> Sim || <2> Não\n"
+               "Opção: ");
+        scanf("%d",&opcao);
     }
-    while (cli->tipo < 1 || cli->tipo > 3);
+    while (opcao < 1 || opcao > 2);
 
+    if(opcao == 1)
+        desconto += -0.05;
+    
     limpa_console();
 
+    do{
+        limpa_console();
+        printf("Idoso\n"
+               "<1> Sim || <2> Não\n"
+               "Opção: ");
+        scanf("%d",&opcao);
+    }
+    while (opcao < 1 || opcao > 2);
+    
+    if(opcao == 1)
+        desconto += -0.10;
+    
+    desconto = floorf(desconto * 100) / 100;
+    cli->desconto = desconto;
+    
+    limpa_console();
+    
     printf("Digite a locação(DD/MM/AAAA): ");
 
     defineData(cli,"dataLocacao");
@@ -67,10 +89,10 @@ int listagemClientes(){
     
     proximo_cliente = ini_cliente;
     
-    while((fscanf(arq,"%i %s %i %li %li\n",
+    while((fscanf(arq,"%i %s %f %li %li\n",
                   &proximo_cliente->codigo,
                   &proximo_cliente->nome[50],
-                  &proximo_cliente->tipo,
+                  &proximo_cliente->desconto,
                   &proximo_cliente->dataLocacao,
                   &proximo_cliente->dataDevolucao
                   ))!=EOF){
@@ -94,7 +116,8 @@ void gravaCliente(t_Cliente * cliente){
 //    teste se o arquivo existe
     if (regCliente != NULL) {
         
-        fprintf(regCliente, "%i %s %i %li\n",numeroDeRegistros,cliente->nome,cliente->tipo,mktime(cliente->dataLocacao),mktime(cliente->dataDevolucao));
+        fprintf(regCliente, "%i %s %f %li %li\n",numeroDeRegistros,cliente->nome,cliente->desconto,mktime(cliente->dataLocacao),mktime(cliente->dataDevolucao));
+        printf("arquivo criado com sucesso");
     }else{
         printf("Crie o Arquivo: clientesReg.txt\n");
         exit(0);
