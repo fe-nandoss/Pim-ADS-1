@@ -7,6 +7,7 @@
 //
 
 #include "Header/H_ClienteMetodos.h"
+#define SIZE 10
 
 t_Cliente * criaCliente(){
     
@@ -21,8 +22,8 @@ t_Cliente * criaCliente(){
     do{
         limpa_console();
         printf("Participante de uma ONG\n"
-               "<1> Sim || <2> Não\n"
-               "Opção: ");
+               "<1> Sim || <2> Nao\n"
+               "Opcao: ");
         scanf("%d",&opcao);
     }
     while (opcao < 1 || opcao > 2);
@@ -35,8 +36,8 @@ t_Cliente * criaCliente(){
     do{
         limpa_console();
         printf("Idoso\n"
-               "<1> Sim || <2> Não\n"
-               "Opção: ");
+               "<1> Sim || <2> Nao\n"
+               "Opcao: ");
         scanf("%d",&opcao);
     }
     while (opcao < 1 || opcao > 2);
@@ -49,7 +50,7 @@ t_Cliente * criaCliente(){
     
     limpa_console();
     
-    printf("Digite a locação(DD/MM/AAAA): ");
+    printf("Digite a locacao(DD/MM/AAAA): ");
     
     defineData(cli,"dataLocacao");
     

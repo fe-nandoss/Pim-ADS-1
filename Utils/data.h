@@ -22,7 +22,7 @@ void defineData(t_Cliente * cli,char * tipo){
 
     limpa_console();
 
-    printf("Digite o horário (HH:MM): ");
+    printf("Digite o horario (HH:MM): ");
     scanf("%s",entradaHora);
     sscanf(entradaHora, "%2d:%2d", &hour, &min);
 

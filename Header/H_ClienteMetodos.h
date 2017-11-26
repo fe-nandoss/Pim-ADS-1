@@ -24,7 +24,7 @@ typedef struct tempCliente{
     long dataLocacao;
     long dataDevolucao;
     int codigo_veiculo;
-    struct temp * proximo;
+    struct tempCliente * proximo;
 }temp_Cliente;
 
 void gravaCliente(t_Cliente * cliente);

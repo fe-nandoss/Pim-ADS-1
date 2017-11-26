@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <paths.h>
 #include "Carro.h"
 #include "../Utils/_globals.h"
 
