@@ -37,6 +37,10 @@ void resetaStructCliente(t_Cliente * cliente);
 
 struct tm * resetaStructData();
 
-//void alteraCliente(temp_Cliente * listacliente,int codCliente);
+void copyStructCliente(temp_Cliente * temp_cliente, t_Cliente * t_cliente, char * destino);
+
+void alteraCliente(temp_Cliente * listacliente,int codCliente);
+
+void sobreEscreveClientes(temp_Cliente * listaClientes);
 
 #endif /* H_ClienteMetodos */

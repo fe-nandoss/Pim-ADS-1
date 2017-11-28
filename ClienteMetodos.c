@@ -51,7 +51,7 @@ t_Cliente * criaCliente(){
     
     limpa_console();
     
-    printf("Digite a locacao(DD/MM/AAAA): ");
+
     
     defineData(cli,"dataLocacao");
     
@@ -76,8 +76,7 @@ temp_Cliente * listaClientes(){
         exit(1);
     
     proximo_cliente = ini_cliente;
-    char time[256];
-    char time_f[256];
+
     while((fscanf(arq,"%i %s %f %i/%i/%i %i:%i %i/%i/%i %i:%i %i\n",
     //while((fscanf(arq,"%i %s %f %i/%i/%i %i:%i:%i %i/%i/%i %i:%i:%i %i\n",
                   &proximo_cliente->codigo
@@ -100,12 +99,6 @@ temp_Cliente * listaClientes(){
         proximo_cliente->dataLocacao.tm_mon += - 1;
         proximo_cliente->dataDevolucao.tm_year += -1900;
         proximo_cliente->dataDevolucao.tm_mon += - 1;
-
-        strftime(time,256,"%F %T",&proximo_cliente->dataLocacao);
-        strftime(time_f,256,"%F %T",&proximo_cliente->dataDevolucao);
-        printf("\ncod: %i nome %s desconto %.2f data: %s data_f %s\n",proximo_cliente->codigo,proximo_cliente->nome,proximo_cliente->desconto,time,time_f);
-        //strptime(dataLocacao, "%F %T", proximo_cliente->dataLocacao);
-        //strptime(dataLocacao, "%F %T", proximo_cliente->dataDevolucao);
 
         proximo_cliente->proximo = (temp_Cliente *) malloc(sizeof(temp_Cliente));
         proximo_cliente = proximo_cliente->proximo;
@@ -140,7 +133,6 @@ void gravaCliente(t_Cliente * cliente){
         char data_locacao[256]; strftime(data_locacao, sizeof data_locacao, "%d/%m/%Y %H:%M", cliente->dataLocacao);
         char data_devolucao[256]; strftime(data_devolucao, sizeof data_devolucao,"%d/%m/%Y %H:%M", cliente->dataDevolucao);
         fprintf(regCliente, "%i %s %.2f %s %s %i\n",numeroDeRegistros,cliente->nome,cliente->desconto,data_locacao,data_devolucao,cliente->codigo_veiculo);
-        printf("arquivo criado com sucesso");
     }else{
         printf("Crie o Arquivo: clientesReg.txt\n");
         exit(0);
@@ -150,6 +142,28 @@ void gravaCliente(t_Cliente * cliente){
 
     //alteraCliente(listaClientes(),1);
     
+}
+
+void sobreEscreveClientes(temp_Cliente * listaClientes){
+
+
+            while (listaClientes != NULL && listaClientes->proximo != NULL) {
+
+                char data_locacao[256];
+                char data_devolucao[256];
+
+                strftime(data_locacao, sizeof data_locacao, "%d/%m/%Y %H:%M", &listaClientes->dataLocacao);
+                strftime(data_devolucao, sizeof data_devolucao, "%d/%m/%Y %H:%M", &listaClientes->dataDevolucao);
+
+                printf("\nnome: %s data final %s\n", listaClientes->nome, data_devolucao);
+//                fprintf(regCliente, "%i %s %.2f %s %s %i\n", listaClientes->codigo, listaClientes->nome,
+//                        listaClientes->desconto, data_locacao, data_devolucao, listaClientes->codigo_veiculo);
+//            }
+//        }else{
+//            printf("nao foi possivel atualizar os dados em clientesReg.txt\n");
+//            exit(0);
+//        }
+            }
 }
 
 void resetaStructCliente(t_Cliente * cliente){
@@ -179,15 +193,42 @@ struct tm * resetaStructData(){
     return  timeinfo;
 }
 
-//void alteraCliente(temp_Cliente * listacliente,int codCliente){
-//
-//
-//    limpa_console();
-//    while (listacliente != NULL && listacliente->proximo != NULL){
-//
-//
-//        printf("\nCliente: %s - data Inicial: %s - Data Final: %s",listacliente->nome,ctime(listacliente->dataLocacao),ctime(listacliente->dataDevolucao));
-//        listacliente = listacliente->proximo;
-//    }
-//
-//}
+void alteraCliente(temp_Cliente * listacliente,int codCliente){
+
+    t_Cliente * cliente = (t_Cliente *) malloc(sizeof(t_Cliente));
+    limpa_console();
+    while (listacliente != NULL && listacliente->proximo != NULL){
+
+        if(listacliente->codigo == codCliente){
+            copyStructCliente(listacliente,cliente,"cliente");
+            defineData(cliente,"dataDevolucao");
+            copyStructCliente(listacliente,cliente,"temp");
+        }
+
+        listacliente = listacliente->proximo;
+    }
+
+    sobreEscreveClientes(listacliente);
+
+}
+
+void copyStructCliente(temp_Cliente * temp_cliente, t_Cliente * t_cliente, char * destino){
+
+    if(strcmp(destino,"temp") == 0){
+        temp_cliente->codigo = t_cliente->codigo;
+        temp_cliente->dataDevolucao = *t_cliente->dataDevolucao;
+        temp_cliente->dataLocacao = *t_cliente->dataLocacao;
+        temp_cliente->codigo_veiculo = t_cliente->codigo_veiculo;
+        temp_cliente->desconto = t_cliente->desconto;
+        strcpy(temp_cliente->nome,t_cliente->nome);
+    }
+
+    if(strcmp(destino,"cliente") == 0){
+        t_cliente->codigo = temp_cliente->codigo;
+        t_cliente->dataDevolucao = &temp_cliente->dataDevolucao;
+        t_cliente->dataLocacao = &temp_cliente->dataLocacao;
+        t_cliente->codigo_veiculo = temp_cliente->codigo_veiculo;
+        t_cliente->desconto = temp_cliente->desconto;
+        strcpy(t_cliente->nome,temp_cliente->nome);
+    }
+}

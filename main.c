@@ -7,7 +7,8 @@
 int main(int argc, char *argv[]) {
     
 //    t_Cliente * cliente = criaCliente();
-    listaClientes();
+
+alteraCliente(listaClientes(),1);
 //    t_Carro * carro = listaVeiculos();
 //    alteraVeiculo(carro,cliente->codigo_veiculo);
 //    gravaVeiculos(carro);
