@@ -7,12 +7,13 @@
 //
 
 #include "Header/H_ClienteMetodos.h"
-#define SIZE 10
 
 t_Cliente * criaCliente(){
     
     t_Cliente * cli = (t_Cliente *) malloc(sizeof(t_Cliente));
+    resetaStructCliente(cli);
     limpa_console();
+
     printf("Nome: ");
     scanf("%s",cli->nome);
     
@@ -55,16 +56,14 @@ t_Cliente * criaCliente(){
     defineData(cli,"dataLocacao");
     
     cli->codigo_veiculo = 1;
-    cli->dataDevolucao = 0;
-    
+
     gravaCliente(cli);
     
     return cli;
 }
 
-int listagemClientes(){
+temp_Cliente * listaClientes(){
     
-    int numeroRegistros = 1;
     char * listaClientes = PATH_TXT_CLIENTES;
     FILE * arq = fopen(listaClientes, "r+");
     temp_Cliente * ini_cliente;
@@ -77,36 +76,70 @@ int listagemClientes(){
         exit(1);
     
     proximo_cliente = ini_cliente;
-    
-    while((fscanf(arq,"%i %s %f %li %li %i\n",
-                  &proximo_cliente->codigo,
-                  &proximo_cliente->nome[50],
-                  &proximo_cliente->desconto,
-                  &proximo_cliente->dataLocacao,
-                  &proximo_cliente->dataDevolucao,
-                  &proximo_cliente->codigo_veiculo
+    char time[256];
+    char time_f[256];
+    while((fscanf(arq,"%i %s %f %i/%i/%i %i:%i %i/%i/%i %i:%i %i\n",
+    //while((fscanf(arq,"%i %s %f %i/%i/%i %i:%i:%i %i/%i/%i %i:%i:%i %i\n",
+                  &proximo_cliente->codigo
+                  ,proximo_cliente->nome
+                  ,&proximo_cliente->desconto
+                  ,&proximo_cliente->dataLocacao.tm_mday
+                  ,&proximo_cliente->dataLocacao.tm_mon
+                  ,&proximo_cliente->dataLocacao.tm_year
+                  ,&proximo_cliente->dataLocacao.tm_hour
+                  ,&proximo_cliente->dataLocacao.tm_min
+                  ,&proximo_cliente->dataDevolucao.tm_mday
+                  ,&proximo_cliente->dataDevolucao.tm_mon
+                  ,&proximo_cliente->dataDevolucao.tm_year
+                  ,&proximo_cliente->dataDevolucao.tm_hour
+                  ,&proximo_cliente->dataDevolucao.tm_min
+                  ,&proximo_cliente->codigo_veiculo
                   ))!=EOF){
+
+        proximo_cliente->dataLocacao.tm_year += -1900;
+        proximo_cliente->dataLocacao.tm_mon += - 1;
+        proximo_cliente->dataDevolucao.tm_year += -1900;
+        proximo_cliente->dataDevolucao.tm_mon += - 1;
+
+        strftime(time,256,"%F %T",&proximo_cliente->dataLocacao);
+        strftime(time_f,256,"%F %T",&proximo_cliente->dataDevolucao);
+        printf("\ncod: %i nome %s desconto %.2f data: %s data_f %s\n",proximo_cliente->codigo,proximo_cliente->nome,proximo_cliente->desconto,time,time_f);
+        //strptime(dataLocacao, "%F %T", proximo_cliente->dataLocacao);
+        //strptime(dataLocacao, "%F %T", proximo_cliente->dataDevolucao);
+
         proximo_cliente->proximo = (temp_Cliente *) malloc(sizeof(temp_Cliente));
         proximo_cliente = proximo_cliente->proximo;
-        numeroRegistros = numeroRegistros + 1;
     }
     
     proximo_cliente->proximo = NULL;
     proximo_cliente = ini_cliente;
     
     fclose(arq);
-    
-    return numeroRegistros;
+
+    return proximo_cliente;
+}
+
+int totalClientes(temp_Cliente * clientes){
+
+    int totalClientes = 1;
+
+    while (clientes != NULL && clientes->proximo != NULL){
+        totalClientes += 1;
+        clientes = clientes->proximo;
+    }
+
+    return totalClientes;
 }
 
 void gravaCliente(t_Cliente * cliente){
-    char * listaClientes = PATH_TXT_CLIENTES;
-    FILE * regCliente = fopen(listaClientes, "a+");
-    int numeroDeRegistros = listagemClientes();
+    char * TXT_CLIENTES = PATH_TXT_CLIENTES;
+    FILE * regCliente = fopen(TXT_CLIENTES, "a+");
+    int numeroDeRegistros = totalClientes(listaClientes());
     //    teste se o arquivo existe
     if (regCliente != NULL) {
-        
-        fprintf(regCliente, "%i %s %f %li %li %i\n",numeroDeRegistros,cliente->nome,cliente->desconto,mktime(cliente->dataLocacao),mktime(cliente->dataDevolucao),cliente->codigo_veiculo);
+        char data_locacao[256]; strftime(data_locacao, sizeof data_locacao, "%d/%m/%Y %H:%M", cliente->dataLocacao);
+        char data_devolucao[256]; strftime(data_devolucao, sizeof data_devolucao,"%d/%m/%Y %H:%M", cliente->dataDevolucao);
+        fprintf(regCliente, "%i %s %.2f %s %s %i\n",numeroDeRegistros,cliente->nome,cliente->desconto,data_locacao,data_devolucao,cliente->codigo_veiculo);
         printf("arquivo criado com sucesso");
     }else{
         printf("Crie o Arquivo: clientesReg.txt\n");
@@ -114,5 +147,47 @@ void gravaCliente(t_Cliente * cliente){
     }
     
     fclose(regCliente);
+
+    //alteraCliente(listaClientes(),1);
     
 }
+
+void resetaStructCliente(t_Cliente * cliente){
+
+    strcpy(cliente->nome,"");
+    cliente->dataLocacao = resetaStructData();
+    cliente->dataDevolucao = resetaStructData();
+    cliente->codigo = 0;
+    cliente->codigo_veiculo = 0;
+    cliente->desconto = 0.00;
+
+}
+
+struct tm * resetaStructData(){
+
+    time_t rawtime;
+    struct tm * timeinfo;
+    char buffer [80];
+
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+
+    strftime (buffer,80,"Now it's %y/%m/%d.",timeinfo);
+    timeinfo->tm_year = 0 - 1900;
+    timeinfo->tm_mday = 1;
+    timeinfo->tm_mon = 0;
+    return  timeinfo;
+}
+
+//void alteraCliente(temp_Cliente * listacliente,int codCliente){
+//
+//
+//    limpa_console();
+//    while (listacliente != NULL && listacliente->proximo != NULL){
+//
+//
+//        printf("\nCliente: %s - data Inicial: %s - Data Final: %s",listacliente->nome,ctime(listacliente->dataLocacao),ctime(listacliente->dataDevolucao));
+//        listacliente = listacliente->proximo;
+//    }
+//
+//}

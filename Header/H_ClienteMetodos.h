@@ -21,14 +21,22 @@ typedef struct tempCliente{
     int codigo;
     char nome[50];
     float desconto;
-    long dataLocacao;
-    long dataDevolucao;
+    struct tm dataLocacao;
+    struct tm dataDevolucao;
     int codigo_veiculo;
     struct tempCliente * proximo;
 }temp_Cliente;
 
 void gravaCliente(t_Cliente * cliente);
 
-int listagemClientes(void);
+temp_Cliente * listaClientes(void);
+
+int totalClientes(temp_Cliente * clientes);
+
+void resetaStructCliente(t_Cliente * cliente);
+
+struct tm * resetaStructData();
+
+//void alteraCliente(temp_Cliente * listacliente,int codCliente);
 
 #endif /* H_ClienteMetodos */
