@@ -14,6 +14,7 @@
 void defineData(t_Cliente * cli,char * tipo){
 
     if(strcmp(tipo,"dataLocacao") == 0){
+        cabecalhoNovoCliente();
         printf("Data de locacao, Ex (DD/MM/AAAA): ");
     }
     if(strcmp(tipo,"dataDevolucao") == 0){
@@ -27,8 +28,6 @@ void defineData(t_Cliente * cli,char * tipo){
 
     scanf("%s",entradaData);
     sscanf(entradaData, "%2d/%2d/%4d", &day, &month, &year);
-
-    //limpa_console();
 
     printf("Digite o horario (HH:MM): ");
     scanf("%s",entradaHora);

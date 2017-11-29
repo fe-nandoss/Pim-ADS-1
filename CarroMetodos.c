@@ -88,6 +88,70 @@ t_Carro * veiculosDisponiveis(){
     
 }
 
+t_Carro * retornaVeiculo(int cod){
+
+    t_Carro * listaDeVeiculos = listaVeiculos();
+
+    while (listaDeVeiculos != NULL && listaDeVeiculos->proximo != NULL){
+
+        if(cod == listaDeVeiculos->codigo)
+            return listaDeVeiculos;
+        listaDeVeiculos = listaDeVeiculos->proximo;
+    }
+
+    return 0;
+}
+
+int selecionaVeiculo(){
+
+    int contadorMenu;
+    int opcao;
+    int numeroCarrosMax;
+    int auxContador = 0;
+    int codCarroEscolhido = 1;
+
+    char * nomeCarro = NULL;
+
+    t_Carro * carrosDisponiveis = veiculosDisponiveis();
+    t_Carro * carroEscolhido = carrosDisponiveis;
+    t_Carro * carro = listaVeiculos();
+
+    do{
+        contadorMenu = 1;
+        numeroCarrosMax = 0;
+        t_Carro * listaCarros = carroEscolhido;
+        system("clear");
+        printf("*******************************\n"
+               "*      Escolha S Veiculo      *\n"
+               "*******************************\n");
+        while (listaCarros != NULL && listaCarros->proximo != NULL){
+            printf("%d - Marca: %s | Modelo: %s | Placa %s | Diaria %.2f\n",contadorMenu,listaCarros->marca,listaCarros->modelo,listaCarros->placa,listaCarros->preco);
+            listaCarros = listaCarros->proximo;
+            contadorMenu++;
+            numeroCarrosMax++;
+        }
+        printf("\nOpcao: ");
+        scanf("%d",&opcao);
+    }
+    while (opcao < 1 || opcao > numeroCarrosMax);
+
+
+
+    while (carroEscolhido != NULL && carroEscolhido->proximo != NULL){
+        if(auxContador == opcao-1){
+            codCarroEscolhido = carroEscolhido->codigo;
+        }
+        auxContador++;
+        carroEscolhido = carroEscolhido->proximo;
+    }
+
+    alteraVeiculo(carro,codCarroEscolhido);
+    gravaVeiculos(carro);
+
+    return codCarroEscolhido;
+}
+
+
 void gravaVeiculos(t_Carro * listaDeCarros){
     
     char * TXTPATHCARROS = PATH_TXT_CARROS;

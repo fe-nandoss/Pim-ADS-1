@@ -1,25 +1,29 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "./Utils/utils.h"
-#include "CarroMetodos.c"
-#include "ClienteMetodos.c"
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include "./Utils/utils.h"
+//#include "CarroMetodos.c"
+
+#include "Interface.c"
 
 int main(int argc, char *argv[]) {
     
 //    t_Cliente * cliente = criaCliente();
 
-alteraCliente(listaClientes(),1);
+    menuPrincipal();
+//    temp_Cliente * clientes = listaClientes();
+//    alteraCliente(clientes,1);
+//    sobreEscreveClientes(clientes);
 //    t_Carro * carro = listaVeiculos();
 //    alteraVeiculo(carro,cliente->codigo_veiculo);
 //    gravaVeiculos(carro);
-    //    listagemClientes();
-    //    printf("\nNome: %s\nTipo: %i\nLocação: %i/%i/%i\n",
-    //            cliente->nome,
-    //            cliente->tipo,
-    //            cliente->dataDevolucao->tm_mday,
-    //           cliente->dataDevolucao->tm_mon+1,
-    //           cliente->dataDevolucao->tm_year);
-    //
+//    listagemClientes();
+//    printf("\nNome: %s\nTipo: %i\nLocação: %i/%i/%i\n",
+//            cliente->nome,
+//            cliente->tipo,
+//            cliente->dataDevolucao->tm_mday,
+//           cliente->dataDevolucao->tm_mon+1,
+//           cliente->dataDevolucao->tm_year);
+//
     
 //
 //    do{
@@ -44,17 +48,6 @@ alteraCliente(listaClientes(),1);
      *
      *
      */
-    
-    
-    //    char * nome[] = {"joao","maria","pedro","marcelo","arnaldo","jose","costa","ronaldo","raul","zeze"};
-    //    char * sobrenome[] = {"silva","souza","da cruz","ferreira","yous","raiz","zyaoiu","syqns","stqbal","aisnca"};
-    //
-    //    srand(time(NULL));
-    //
-    //    for(int i = 0;i < sizeof(nome);i++){
-    //        printf("nome: %s %s\n",nome[rand()%10],sobrenome[rand()%10]);
-    //    }
-    
     
     return 0;
 }

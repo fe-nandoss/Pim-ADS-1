@@ -21,4 +21,10 @@ void limpa_console(void)
     
 }
 
+void cabecalhoNovoCliente(void){
+    printf("**************************\n"
+           "*      NOVO CLIENTE      *\n"
+           "**************************\n");
+}
+
 #endif //PROJETO_ADS_UTILS_H

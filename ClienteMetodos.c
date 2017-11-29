@@ -7,58 +7,63 @@
 //
 
 #include "Header/H_ClienteMetodos.h"
+#include "CarroMetodos.c"
 
 t_Cliente * criaCliente(){
-    
+
     t_Cliente * cli = (t_Cliente *) malloc(sizeof(t_Cliente));
     resetaStructCliente(cli);
-    limpa_console();
 
+    limpa_console();
+    cabecalhoNovoCliente();
     printf("Nome: ");
+
     scanf("%s",cli->nome);
-    
+
     float desconto = 1.00;
     int opcao = 0;
-    
+
     do{
         limpa_console();
+        cabecalhoNovoCliente();
         printf("Participante de uma ONG\n"
                "<1> Sim || <2> Nao\n"
                "Opcao: ");
         scanf("%d",&opcao);
     }
     while (opcao < 1 || opcao > 2);
-    
+
     if(opcao == 1)
         desconto += -0.05;
-    
+
     limpa_console();
-    
+
     do{
         limpa_console();
+        cabecalhoNovoCliente();
         printf("Idoso\n"
                "<1> Sim || <2> Nao\n"
                "Opcao: ");
         scanf("%d",&opcao);
     }
     while (opcao < 1 || opcao > 2);
-    
+
     if(opcao == 1)
         desconto += -0.10;
-    
+
     desconto = floorf(desconto * 100) / 100;
     cli->desconto = desconto;
-    
-    limpa_console();
-    
 
-    
+    limpa_console();
+
+
+
     defineData(cli,"dataLocacao");
-    
-    cli->codigo_veiculo = 1;
+
+    cli->codigo_veiculo = selecionaVeiculo();
 
     gravaCliente(cli);
-    
+
     return cli;
 }
 
@@ -133,6 +138,19 @@ void gravaCliente(t_Cliente * cliente){
         char data_locacao[256]; strftime(data_locacao, sizeof data_locacao, "%d/%m/%Y %H:%M", cliente->dataLocacao);
         char data_devolucao[256]; strftime(data_devolucao, sizeof data_devolucao,"%d/%m/%Y %H:%M", cliente->dataDevolucao);
         fprintf(regCliente, "%i %s %.2f %s %s %i\n",numeroDeRegistros,cliente->nome,cliente->desconto,data_locacao,data_devolucao,cliente->codigo_veiculo);
+
+        strftime(data_locacao, sizeof data_locacao, "%d/%m/%Y as %H:%M", cliente->dataLocacao);
+        t_Carro * carroLocado = retornaVeiculo(cliente->codigo_veiculo);
+
+        limpa_console();
+        cabecalhoNovoCliente();
+
+        printf("Cliente: %s\n",cliente->nome);
+        printf("Ticket: %d\n",numeroDeRegistros);
+        printf("Data locacao: %s\n",data_locacao);
+        printf("Carro: %s - %s\n",carroLocado->marca,carroLocado->modelo);
+        printf("Preco Diaria: R$ %.2f\n",carroLocado->preco * cliente->desconto);
+
     }else{
         printf("Crie o Arquivo: clientesReg.txt\n");
         exit(0);
@@ -140,12 +158,12 @@ void gravaCliente(t_Cliente * cliente){
     
     fclose(regCliente);
 
-    //alteraCliente(listaClientes(),1);
-    
 }
 
 void sobreEscreveClientes(temp_Cliente * listaClientes){
 
+            char * TXT_CLIENTES = PATH_TXT_CLIENTES;
+            FILE * regCliente = fopen(TXT_CLIENTES, "w+");
 
             while (listaClientes != NULL && listaClientes->proximo != NULL) {
 
@@ -156,13 +174,9 @@ void sobreEscreveClientes(temp_Cliente * listaClientes){
                 strftime(data_devolucao, sizeof data_devolucao, "%d/%m/%Y %H:%M", &listaClientes->dataDevolucao);
 
                 printf("\nnome: %s data final %s\n", listaClientes->nome, data_devolucao);
-//                fprintf(regCliente, "%i %s %.2f %s %s %i\n", listaClientes->codigo, listaClientes->nome,
-//                        listaClientes->desconto, data_locacao, data_devolucao, listaClientes->codigo_veiculo);
-//            }
-//        }else{
-//            printf("nao foi possivel atualizar os dados em clientesReg.txt\n");
-//            exit(0);
-//        }
+                fprintf(regCliente, "%i %s %.2f %s %s %i\n", listaClientes->codigo, listaClientes->nome,
+                        listaClientes->desconto, data_locacao, data_devolucao, listaClientes->codigo_veiculo);
+                listaClientes = listaClientes->proximo;
             }
 }
 
@@ -177,22 +191,6 @@ void resetaStructCliente(t_Cliente * cliente){
 
 }
 
-struct tm * resetaStructData(){
-
-    time_t rawtime;
-    struct tm * timeinfo;
-    char buffer [80];
-
-    time ( &rawtime );
-    timeinfo = localtime ( &rawtime );
-
-    strftime (buffer,80,"Now it's %y/%m/%d.",timeinfo);
-    timeinfo->tm_year = 0 - 1900;
-    timeinfo->tm_mday = 1;
-    timeinfo->tm_mon = 0;
-    return  timeinfo;
-}
-
 void alteraCliente(temp_Cliente * listacliente,int codCliente){
 
     t_Cliente * cliente = (t_Cliente *) malloc(sizeof(t_Cliente));
@@ -203,12 +201,11 @@ void alteraCliente(temp_Cliente * listacliente,int codCliente){
             copyStructCliente(listacliente,cliente,"cliente");
             defineData(cliente,"dataDevolucao");
             copyStructCliente(listacliente,cliente,"temp");
+            printf("nome %s",listacliente->nome);
         }
 
         listacliente = listacliente->proximo;
     }
-
-    sobreEscreveClientes(listacliente);
 
 }
 
@@ -231,4 +228,20 @@ void copyStructCliente(temp_Cliente * temp_cliente, t_Cliente * t_cliente, char 
         t_cliente->desconto = temp_cliente->desconto;
         strcpy(t_cliente->nome,temp_cliente->nome);
     }
+}
+
+struct tm * resetaStructData(){
+
+    time_t rawtime;
+    struct tm * timeinfo;
+    char buffer [80];
+
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+
+    strftime (buffer,80,"Now it's %y/%m/%d.",timeinfo);
+    timeinfo->tm_year = 0 - 1900;
+    timeinfo->tm_mday = 1;
+    timeinfo->tm_mon = 0;
+    return  timeinfo;
 }

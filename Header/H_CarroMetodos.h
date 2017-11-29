@@ -20,9 +20,13 @@ t_Carro * listaVeiculos(void);
 
 t_Carro * veiculosDisponiveis(void);
 
+int selecionaVeiculo(void);
+
 void gravaVeiculos(t_Carro * listaDeCarros);
 
 void alteraVeiculo(t_Carro * listaDeCarros, int codigo_veiculo);
+
+t_Carro * retornaVeiculo(int cod);
 
 
 #endif /* carMetodos_h */
