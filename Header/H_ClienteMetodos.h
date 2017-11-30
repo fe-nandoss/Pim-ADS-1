@@ -27,6 +27,8 @@ typedef struct tempCliente{
     struct tempCliente * proximo;
 }temp_Cliente;
 
+void criaCliente(void);
+
 void gravaCliente(t_Cliente * cliente);
 
 temp_Cliente * listaClientes(void);
@@ -39,8 +41,10 @@ struct tm * resetaStructData();
 
 void copyStructCliente(temp_Cliente * temp_cliente, t_Cliente * t_cliente, char * destino);
 
-void alteraCliente(temp_Cliente * listacliente,int codCliente);
+t_Cliente * alteraCliente(temp_Cliente * listacliente,int codCliente);
 
 void sobreEscreveClientes(temp_Cliente * listaClientes);
+
+void devolucaoCliente(void);
 
 #endif /* H_ClienteMetodos */
