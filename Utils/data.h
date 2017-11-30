@@ -50,4 +50,25 @@ void defineData(t_Cliente * cli,char * tipo){
     }
 }
 
+double diffDatas(struct tm * s_data_Inicial, struct tm * s_data_Final){
+
+    time_t t_data_Inicial;
+    time_t t_data_Final;
+    t_data_Inicial = mktime(s_data_Inicial);
+    t_data_Final = mktime(s_data_Final);
+
+    return difftime(t_data_Final,t_data_Inicial);
+}
+
+char * formataData(struct tm * data,char * formato){
+
+    char dataFormatada[256];
+    char * newData = (char *) malloc(sizeof(char *));
+    strftime(dataFormatada, sizeof dataFormatada,formato,data);
+
+    strcpy(newData,dataFormatada);
+
+    return newData;
+}
+
 #endif //PROJETO_ADS_DATA_H

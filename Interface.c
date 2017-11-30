@@ -12,6 +12,7 @@ void menuPrincipal(){
 
 
     do{
+        opcao = 0;
         limpa_console();
         printf("->Bem Vindo<-");
         printf("\nMenu:\n"
@@ -22,7 +23,7 @@ void menuPrincipal(){
         printf("\nOpcao: ");
         scanf("%d",&opcao);
     }
-    while (opcao < 1 || opcao > 2);
+    while (opcao < 1 || opcao > 4);
 
     switch (opcao){
         case 1:
@@ -31,7 +32,7 @@ void menuPrincipal(){
 
         case 2:
             limpa_console();
-            printf("devolucao veiculo");
+            devolveVeiculo();
             break;
 
         case 3:
@@ -42,6 +43,7 @@ void menuPrincipal(){
         case 4:
             limpa_console();
             printf("sair do programa");
+            exit(0);
             break;
 
         default:
@@ -53,8 +55,12 @@ void menuPrincipal(){
 }
 
 void novoCliente(){
-
     limpa_console();
-    t_Cliente * cliente = criaCliente();
+    criaCliente();
 
+}
+
+void devolveVeiculo(){
+    limpa_console();
+    devolucaoCliente();
 }

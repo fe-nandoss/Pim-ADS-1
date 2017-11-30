@@ -30,6 +30,8 @@ t_Carro * listaVeiculos(){
     
     proximo_carro->proximo = NULL;
     proximo_carro = ini_carro;
+
+    fclose(arq);
     
     return proximo_carro;
 }
@@ -145,7 +147,7 @@ int selecionaVeiculo(){
         carroEscolhido = carroEscolhido->proximo;
     }
 
-    alteraVeiculo(carro,codCarroEscolhido);
+    alteraVeiculo(carro,codCarroEscolhido,"alugar");
     gravaVeiculos(carro);
 
     return codCarroEscolhido;
@@ -164,12 +166,15 @@ void gravaVeiculos(t_Carro * listaDeCarros){
     fclose(arq);
 }
 
-void alteraVeiculo(t_Carro * listaDeCarros, int codigo_veiculo){
+void alteraVeiculo(t_Carro * listaDeCarros, int codigo_veiculo, char * status){
     
     while (listaDeCarros != NULL && listaDeCarros->proximo != NULL) {
         if(listaDeCarros->codigo == codigo_veiculo){
-            printf("\nCarro escolhido - cod %i - carro: %s\n",listaDeCarros->codigo,listaDeCarros->modelo);
-            strcpy(listaDeCarros->status,"alugado") ;
+            if(strcmp(status,"alugar") == 0)
+                strcpy(listaDeCarros->status,"alugado") ;
+
+            if(strcmp(status,"devolver") == 0)
+                strcpy(listaDeCarros->status,"disponivel") ;
         }
         listaDeCarros = listaDeCarros->proximo;
     }

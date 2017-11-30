@@ -24,7 +24,7 @@ int selecionaVeiculo(void);
 
 void gravaVeiculos(t_Carro * listaDeCarros);
 
-void alteraVeiculo(t_Carro * listaDeCarros, int codigo_veiculo);
+void alteraVeiculo(t_Carro * listaDeCarros, int codigo_veiculo, char * status);
 
 t_Carro * retornaVeiculo(int cod);
 

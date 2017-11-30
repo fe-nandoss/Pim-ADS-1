@@ -27,4 +27,16 @@ void cabecalhoNovoCliente(void){
            "**************************\n");
 }
 
+void cabecalhoDevolucaoCliente(void){
+    printf("*******************************\n"
+           "*      Devolucao CLIENTE      *\n"
+           "*******************************\n");
+}
+
+void cabecalhoResumoCliente(void){
+    printf("*******************************\n"
+           "*            RESUMO           *\n"
+           "*******************************\n");
+}
+
 #endif //PROJETO_ADS_UTILS_H
