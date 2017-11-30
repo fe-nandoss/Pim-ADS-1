@@ -133,6 +133,7 @@ void gravaCliente(t_Cliente * cliente){
     char * TXT_CLIENTES = PATH_TXT_CLIENTES;
     FILE * regCliente = fopen(TXT_CLIENTES, "a+");
     int numeroDeRegistros = totalClientes(listaClientes());
+    int opcao;
     //    teste se o arquivo existe
     if (regCliente != NULL) {
         char data_locacao[256]; strftime(data_locacao, sizeof data_locacao, "%d/%m/%Y %H:%M", cliente->dataLocacao);
@@ -142,14 +143,25 @@ void gravaCliente(t_Cliente * cliente){
         strftime(data_locacao, sizeof data_locacao, "%d/%m/%Y as %H:%M", cliente->dataLocacao);
         t_Carro * carroLocado = retornaVeiculo(cliente->codigo_veiculo);
 
-        limpa_console();
-        cabecalhoNovoCliente();
+        while (opcao < 1 || opcao > 2){
+            limpa_console();
+            cabecalhoNovoCliente();
+            printf("Cliente: %s\n",cliente->nome);
+            printf("Ticket: %d\n",numeroDeRegistros);
+            printf("Data locacao: %s\n",data_locacao);
+            printf("Carro: %s - %s\n",carroLocado->marca,carroLocado->modelo);
+            printf("Preco Diaria: R$ %.2f\n",carroLocado->preco * cliente->desconto);
 
-        printf("Cliente: %s\n",cliente->nome);
-        printf("Ticket: %d\n",numeroDeRegistros);
-        printf("Data locacao: %s\n",data_locacao);
-        printf("Carro: %s - %s\n",carroLocado->marca,carroLocado->modelo);
-        printf("Preco Diaria: R$ %.2f\n",carroLocado->preco * cliente->desconto);
+            printf("\n\nIr para o menu?\n"
+                   "<1> Sim | <2> Nao, Sair do programa.\n");
+            scanf("%d",&opcao);
+        }
+
+        if(opcao == 1)
+            menuPrincipal();
+
+        if(opcao == 2)
+            exit(0);
 
     }else{
         printf("Crie o Arquivo: clientesReg.txt\n");
