@@ -1,4 +1,4 @@
-1 2300 alfa-romeo fht-0776 175 disponivel
+1 2300 alfa-romeo fht-0776 175 alugado
 2 xsara-picasso citroen cla-5418 120 disponivel
 3 uno-mille fiat feh-3471 70 disponivel
 4 charger dodge btr-4156 250 disponivel

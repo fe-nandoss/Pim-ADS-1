@@ -159,7 +159,7 @@ void gravaCliente(t_Cliente * cliente){
         fclose(regCliente);
 
         if(opcao == 1)
-            //menuPrincipal();
+            menuPrincipal();
 
         if(opcao == 2)
             exit(0);
@@ -285,7 +285,7 @@ void resumoLocacaoCliente(double diff,t_Cliente * cliente,t_Carro * carro){
     }
 
     if(opcao == 1)
-        //menuPrincipal();
+        menuPrincipal();
 
     if(opcao == 2)
         exit(0);
@@ -303,59 +303,60 @@ void devolucaoCliente(){
     char data_devolucao[256];
 
     temp_Cliente * auxClientes = listaClientes();
-    printf("nada");
-//    temp_Cliente * clientes;
-//    t_Cliente * clienteSelecionado = (t_Cliente *) malloc(sizeof(t_Cliente));
-//
-//    t_Carro * carro;
-//
-//
-//    do {
-//        contadorMenu = 1;
-//        numeroClientesMax = 0;
-//        clientes = auxClientes;
-//        limpa_console();
-//        cabecalhoDevolucaoCliente();
-//
-//        while (clientes != NULL && clientes->proximo != NULL) {
-//
-//            carro = retornaVeiculo(clientes->codigo);
-//            if(strcmp(formataData(&clientes->dataDevolucao,"%d/%m/%Y"),"01/01/0000") == 0){
-//                printf("%d - Ticket: %d | Cliente: %s | Locado em: %s | Carro: %s %s | Placa: %s\n",
-//                       contadorMenu,clientes->codigo, clientes->nome, formataData(&clientes->dataLocacao,"%d/%m/%Y as %H:%M"),carro->marca, carro->modelo, carro->placa);
-//
-//                contadorMenu++;
-//                numeroClientesMax++;
-//            }
-//
-//            clientes = clientes->proximo;
-//        }
-//        printf("\nOpcao: ");
-//        scanf("%d",&opcao);
-//    }while (opcao < 1 || opcao > numeroClientesMax);
-//
-//    clientes = auxClientes;
-//
-//    while (clientes != NULL && clientes->proximo != NULL){
-//        if(auxContador == opcao-1){
-//            codClienteEscolhido = clientes->codigo;
-//            codCarroCliente = clientes->codigo_veiculo;
-//            copyStructCliente(clientes,clienteSelecionado,"cliente");
-//        }
-//        auxContador++;
-//        clientes = clientes->proximo;
-//    }
-//
-//    clientes = auxClientes;
-//
-//    clienteSelecionado = alteraCliente(clientes,codClienteEscolhido);
-//    sobreEscreveClientes(clientes);
-//
-//    double diffTime = diffDatas(clienteSelecionado->dataLocacao,clienteSelecionado->dataDevolucao);
-//
-//    t_Carro * listaCarros = listaVeiculos();
-//    alteraVeiculo(listaCarros,codCarroCliente,"devolver");
-//    gravaVeiculos(listaCarros);
-//    resumoLocacaoCliente(diffTime,clienteSelecionado,retornaVeiculo(clienteSelecionado->codigo_veiculo));
-    exit(0);
+    temp_Cliente * clientes;
+    t_Cliente * clienteSelecionado = (t_Cliente *) malloc(sizeof(t_Cliente));
+
+    t_Carro * carro;
+
+
+    do {
+        contadorMenu = 1;
+        numeroClientesMax = 0;
+        clientes = auxClientes;
+        limpa_console();
+        cabecalhoDevolucaoCliente();
+
+        while (clientes != NULL && clientes->proximo != NULL) {
+
+            carro = retornaVeiculo(clientes->codigo);
+            if(strcmp(formataData(&clientes->dataDevolucao,"%d/%m/%Y"),"01/01/0000") == 0){
+                printf("%d - Ticket: %d | Cliente: %s | Locado em: %s | Carro: %s %s | Placa: %s\n",
+                       contadorMenu,clientes->codigo, clientes->nome, formataData(&clientes->dataLocacao,"%d/%m/%Y as %H:%M"),carro->marca, carro->modelo, carro->placa);
+
+                contadorMenu++;
+                numeroClientesMax++;
+            }
+
+            clientes = clientes->proximo;
+        }
+        printf("\nOpcao: ");
+        scanf("%d",&opcao);
+    }while (opcao < 1 || opcao > numeroClientesMax);
+
+    clientes = auxClientes;
+
+    while (clientes != NULL && clientes->proximo != NULL){
+        if(auxContador == opcao-1){
+            codClienteEscolhido = clientes->codigo;
+            codCarroCliente = clientes->codigo_veiculo;
+            copyStructCliente(clientes,clienteSelecionado,"cliente");
+            printf("\nnome: %s\n",clientes->nome);
+            int i;
+            scanf("%d",&i);
+        }
+        auxContador++;
+        clientes = clientes->proximo;
+    }
+
+    clientes = auxClientes;
+
+    clienteSelecionado = alteraCliente(clientes,codClienteEscolhido);
+    sobreEscreveClientes(clientes);
+
+    double diffTime = diffDatas(clienteSelecionado->dataLocacao,clienteSelecionado->dataDevolucao);
+
+    t_Carro * listaCarros = listaVeiculos();
+    alteraVeiculo(listaCarros,codCarroCliente,"devolver");
+    gravaVeiculos(listaCarros);
+    resumoLocacaoCliente(diffTime,clienteSelecionado,retornaVeiculo(clienteSelecionado->codigo_veiculo));
 }
