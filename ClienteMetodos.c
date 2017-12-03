@@ -293,12 +293,14 @@ void resumoLocacaoCliente(double diff,t_Cliente * cliente,t_Carro * carro){
 
 void devolucaoCliente(){
 
-    int contadorMenu;
-    int opcao;
+    int opcao,op;
     int numeroClientesMax;
     int auxContador = 0;
     int codClienteEscolhido = 1;
     int codCarroCliente = 0;
+    int semClientes = 0;
+    int min =0,max=0;
+    int primeiroCliente = 0;
 
     char data_devolucao[256];
 
@@ -309,8 +311,8 @@ void devolucaoCliente(){
     t_Carro * carro;
 
 
-    do {
-        contadorMenu = 1;
+
+    while (opcao < min || opcao > max){
         numeroClientesMax = 0;
         clientes = auxClientes;
         limpa_console();
@@ -320,43 +322,80 @@ void devolucaoCliente(){
 
             carro = retornaVeiculo(clientes->codigo);
             if(strcmp(formataData(&clientes->dataDevolucao,"%d/%m/%Y"),"01/01/0000") == 0){
-                printf("%d - Ticket: %d | Cliente: %s | Locado em: %s | Carro: %s %s | Placa: %s\n",
-                       contadorMenu,clientes->codigo, clientes->nome, formataData(&clientes->dataLocacao,"%d/%m/%Y as %H:%M"),carro->marca, carro->modelo, carro->placa);
-
-                contadorMenu++;
+                if(primeiroCliente == 0){
+                    min = clientes->codigo;
+                }
+                printf("Ticket: %d | Cliente: %s | Locado em: %s | Carro: %s %s | Placa: %s\n",
+                       clientes->codigo, clientes->nome, formataData(&clientes->dataLocacao,"%d/%m/%Y as %H:%M"),carro->marca, carro->modelo, carro->placa);
                 numeroClientesMax++;
+
+                max = clientes->codigo;
+                primeiroCliente = 1;
             }
 
             clientes = clientes->proximo;
         }
-        printf("\nOpcao: ");
-        scanf("%d",&opcao);
-    }while (opcao < 1 || opcao > numeroClientesMax);
-
-    clientes = auxClientes;
-
-    while (clientes != NULL && clientes->proximo != NULL){
-        if(auxContador == opcao-1){
-            codClienteEscolhido = clientes->codigo;
-            codCarroCliente = clientes->codigo_veiculo;
-            copyStructCliente(clientes,clienteSelecionado,"cliente");
-            printf("\nnome: %s\n",clientes->nome);
-            int i;
-            scanf("%d",&i);
+        if(numeroClientesMax >= 1){
+            printf("\nDigite o numero do ticket: ");
+            scanf("%d",&opcao);
+        }else{
+            limpa_console();
+            semClientes = 1;
+            break;
         }
-        auxContador++;
-        clientes = clientes->proximo;
+
     }
 
-    clientes = auxClientes;
 
-    clienteSelecionado = alteraCliente(clientes,codClienteEscolhido);
-    sobreEscreveClientes(clientes);
+    if(semClientes == 0){
 
-    double diffTime = diffDatas(clienteSelecionado->dataLocacao,clienteSelecionado->dataDevolucao);
+        clientes = auxClientes;
 
-    t_Carro * listaCarros = listaVeiculos();
-    alteraVeiculo(listaCarros,codCarroCliente,"devolver");
-    gravaVeiculos(listaCarros);
-    resumoLocacaoCliente(diffTime,clienteSelecionado,retornaVeiculo(clienteSelecionado->codigo_veiculo));
+        while (clientes != NULL && clientes->proximo != NULL){
+            if(clientes->codigo == opcao){
+                codClienteEscolhido = clientes->codigo;
+                codCarroCliente = clientes->codigo_veiculo;
+                copyStructCliente(clientes,clienteSelecionado,"cliente");
+                printf("\nnome: %s\n",clientes->nome);
+                int i;
+                scanf("%d",&i);
+            }
+            auxContador++;
+            clientes = clientes->proximo;
+        }
+
+        clientes = auxClientes;
+
+        clienteSelecionado = alteraCliente(clientes,codClienteEscolhido);
+        sobreEscreveClientes(clientes);
+
+        double diffTime = diffDatas(clienteSelecionado->dataLocacao,clienteSelecionado->dataDevolucao);
+
+        t_Carro * listaCarros = listaVeiculos();
+        alteraVeiculo(listaCarros,codCarroCliente,"devolver");
+        gravaVeiculos(listaCarros);
+        resumoLocacaoCliente(diffTime,clienteSelecionado,retornaVeiculo(clienteSelecionado->codigo_veiculo));
+    }else{
+        while (op < 1 || op > 2){
+            limpa_console();
+            printf("***************************************************\n");
+            printf("**** SEM CLIENTES PARA REALIZAR A DEVOLUCAO    ****\n");
+            printf("***************************************************\n");
+
+            printf("\n\nIr para menu inicial?\n<1> Sim || <2> Não, sair do programa.\nopcao: ");
+            scanf("%d",&op);
+        }
+
+        if(op == 1)
+            menuPrincipal();
+
+        if(op == 2)
+            exit(0);
+
+    }
+
+
+
+
+
 }
