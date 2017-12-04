@@ -36,8 +36,7 @@ void menuPrincipal(){
             break;
 
         case 3:
-            limpa_console();
-            printf("relatorio");
+            relatorioClientes();
             break;
 
         case 4:

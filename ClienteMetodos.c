@@ -310,8 +310,6 @@ void devolucaoCliente(){
 
     t_Carro * carro;
 
-
-
     while (opcao < min || opcao > max){
         numeroClientesMax = 0;
         clientes = auxClientes;
@@ -356,9 +354,6 @@ void devolucaoCliente(){
                 codClienteEscolhido = clientes->codigo;
                 codCarroCliente = clientes->codigo_veiculo;
                 copyStructCliente(clientes,clienteSelecionado,"cliente");
-                printf("\nnome: %s\n",clientes->nome);
-                int i;
-                scanf("%d",&i);
             }
             auxContador++;
             clientes = clientes->proximo;
@@ -394,8 +389,108 @@ void devolucaoCliente(){
 
     }
 
+}
 
+void relatorioClientes(){
 
+    temp_Cliente * clientesComDevolucao = listaClientes();
+    temp_Cliente * clientesDevolucaoAndamento = clientesComDevolucao;
+    int op,tipoRelatorio;
+
+    while (op < 1 || op > 2){
+        limpa_console();
+        printf("***************************************************\n");
+        printf("****             TIPO DE RELATORIO             ****\n");
+        printf("***************************************************\n");
+
+        printf("\n\nQual Tipo de Relatorio?\n<1> Com Devolucao || <2> Locacao em Andamento.\nopcao: ");
+        scanf("%d",&op);
+    }
+
+    if(totalClientes(clientesComDevolucao) -1 > 1){
+
+        if(tipoRelatorio == 1){
+
+            while (clientesComDevolucao != NULL && clientesComDevolucao->proximo != NULL){
+                limpa_console();
+                cabecalhoRelatorioDevolucaoCliente();
+                t_Carro * carro =  retornaVeiculo(clientesComDevolucao->codigo_veiculo);
+                double diffTime = diffDatas(&clientesComDevolucao->dataLocacao,&clientesComDevolucao->dataDevolucao);
+                double valorTotal = round(diffTime/60/60/24) * (carro->preco * clientesComDevolucao->desconto);
+
+                if(strcmp(formataData(&clientesComDevolucao->dataDevolucao,"%d/%m/%Y"),"01/01/0000") != 0) {
+                    printf("\n**********************************************************\n"
+                                   "Ticket: %d\n"
+                                   "Cliente: %s\n"
+                                   "Carro: %s\n"
+                                   "Placa: %s\n"
+                                   "Data Locacao: %s\n"
+                                   "Data Devolucao: %s\n"
+                                   "Preco Diaria: R$ %.2f"
+                                   "\tTotal Pago: R$ %.2f"
+                                   "\n**********************************************************\n\n",
+                           clientesComDevolucao->codigo,
+                           clientesComDevolucao->nome,
+                           carro->modelo,
+                           carro->placa,
+                           formataData(&clientesComDevolucao->dataLocacao, "%d/%m/%Y"),
+                           formataData(&clientesComDevolucao->dataDevolucao, "%d/%m/%Y"),
+                           carro->preco * clientesComDevolucao->desconto,
+                           valorTotal
+                    );
+                }
+
+                clientesComDevolucao = clientesComDevolucao->proximo;
+            }
+
+        }else{
+            limpa_console();
+            cabecalhoRelatorioSemDevolucaoCliente();
+            while (clientesDevolucaoAndamento != NULL && clientesDevolucaoAndamento->proximo != NULL){
+                t_Carro * carro =  retornaVeiculo(clientesDevolucaoAndamento->codigo_veiculo);
+                double diffTime = diffDatas(&clientesDevolucaoAndamento->dataLocacao,&clientesDevolucaoAndamento->dataDevolucao);
+                double valorTotal = round(diffTime/60/60/24) * (carro->preco * clientesDevolucaoAndamento->desconto);
+
+                if(strcmp(formataData(&clientesDevolucaoAndamento->dataDevolucao,"%d/%m/%Y"),"01/01/0000") == 0) {
+                    printf("\n**********************************************************\n"
+                                   "Ticket: %d\n"
+                                   "Cliente: %s\n"
+                                   "Carro: %s\n"
+                                   "Placa: %s\n"
+                                   "Data Locacao: %s\n"
+                                   "\n**********************************************************\n\n",
+                           clientesDevolucaoAndamento->codigo,
+                           clientesDevolucaoAndamento->nome,
+                           carro->modelo,
+                           carro->placa,
+                           formataData(&clientesDevolucaoAndamento->dataLocacao, "%d/%m/%Y")
+                    );
+                }
+
+                clientesDevolucaoAndamento = clientesDevolucaoAndamento->proximo;
+            }
+
+        }
+
+    }
+    else{
+
+        while (op < 1 || op > 2){
+            limpa_console();
+            printf("***************************************************\n");
+            printf("****    SEM CLIENTES PARA GERAR RELATORIO    ****\n");
+            printf("***************************************************\n");
+
+            printf("\n\nIr para menu inicial?\n<1> Sim || <2> Não, sair do programa.\nopcao: ");
+            scanf("%d",&op);
+        }
+
+        if(op == 1)
+            menuPrincipal();
+
+        if(op == 2)
+            exit(0);
+    }
 
 
 }

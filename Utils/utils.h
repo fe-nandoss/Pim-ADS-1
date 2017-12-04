@@ -38,5 +38,19 @@ void cabecalhoResumoCliente(void){
            "*            RESUMO           *\n"
            "*******************************\n");
 }
+void cabecalhoRelatorioDevolucaoCliente(void){
+    printf("**********************************************************\n"
+           "*       Relatorio - Locacao com Devolucao               *\n"
+           "*--------------------------------------------------------*\n"
+           "**********************************************************\n"
+           "\n");
+}
+
+void cabecalhoRelatorioSemDevolucaoCliente(void){
+    printf("*****************************************************************\n"
+           "*       Relatorio - Locacao em Andamento                        *\n"
+           "-----------------------------------------------------------------\n"
+           "*****************************************************************\n");
+}
 
 #endif //PROJETO_ADS_UTILS_H
