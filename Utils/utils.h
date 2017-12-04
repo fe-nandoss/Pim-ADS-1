@@ -18,7 +18,13 @@ void limpa_console(void)
 #else
     printf("\33[H\33[2J");
 #endif
-    
+
+}
+
+void bemVindo(void){
+    printf("**************************\n"
+           "*        BEM VINDO       *\n"
+           "**************************");
 }
 
 void cabecalhoNovoCliente(void){

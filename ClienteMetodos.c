@@ -397,17 +397,17 @@ void relatorioClientes(){
     temp_Cliente * clientesDevolucaoAndamento = clientesComDevolucao;
     int op,tipoRelatorio;
 
-    while (op < 1 || op > 2){
+    while (tipoRelatorio < 1 || tipoRelatorio > 2){
         limpa_console();
         printf("***************************************************\n");
         printf("****             TIPO DE RELATORIO             ****\n");
         printf("***************************************************\n");
 
         printf("\n\nQual Tipo de Relatorio?\n<1> Com Devolucao || <2> Locacao em Andamento.\nopcao: ");
-        scanf("%d",&op);
+        scanf("%d",&tipoRelatorio);
     }
 
-    if(totalClientes(clientesComDevolucao) -1 > 1){
+    if(totalClientes(clientesComDevolucao) -1 > 0){
 
         if(tipoRelatorio == 1){
 
@@ -418,7 +418,7 @@ void relatorioClientes(){
                 double diffTime = diffDatas(&clientesComDevolucao->dataLocacao,&clientesComDevolucao->dataDevolucao);
                 double valorTotal = round(diffTime/60/60/24) * (carro->preco * clientesComDevolucao->desconto);
 
-                if(strcmp(formataData(&clientesComDevolucao->dataDevolucao,"%d/%m/%Y"),"01/01/0000") != 0) {
+                if(strcmp(formataData(&clientesComDevolucao->dataDevolucao,"%d/%m/%Y"),"01/01/0000") == 0) {
                     printf("\n**********************************************************\n"
                                    "Ticket: %d\n"
                                    "Cliente: %s\n"
@@ -442,6 +442,18 @@ void relatorioClientes(){
 
                 clientesComDevolucao = clientesComDevolucao->proximo;
             }
+
+            while (op < 1 || op > 2){
+                printf("\n\nIr para o menu?\n"
+                               "<1> Sim | <2> Nao, Sair do programa.\n");
+                scanf("%d",&op);
+            }
+
+            if(op == 1)
+                menuPrincipal();
+
+            if(op == 2)
+                exit(0);
 
         }else{
             limpa_console();
@@ -469,6 +481,18 @@ void relatorioClientes(){
 
                 clientesDevolucaoAndamento = clientesDevolucaoAndamento->proximo;
             }
+
+            while (op < 1 || op > 2){
+                printf("\n\nIr para o menu?\n"
+                               "<1> Sim | <2> Nao, Sair do programa.\n");
+                scanf("%d",&op);
+            }
+
+            if(op == 1)
+                menuPrincipal();
+
+            if(op == 2)
+                exit(0);
 
         }
 

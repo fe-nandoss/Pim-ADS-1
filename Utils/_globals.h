@@ -1,6 +1,6 @@
 //
 //  _globals.h
-//  
+//
 //
 //  Created by Furflesx on 16/11/2017.
 //

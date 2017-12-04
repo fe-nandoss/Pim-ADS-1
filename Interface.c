@@ -14,7 +14,7 @@ void menuPrincipal(){
     do{
         opcao = 0;
         limpa_console();
-        printf("->Bem Vindo<-");
+        bemVindo();
         printf("\nMenu:\n"
                        "1: Cadastrar Novo Cliente\n"
                        "2: Devolução de Veiculo\n"
